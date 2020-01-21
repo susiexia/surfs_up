@@ -57,10 +57,11 @@ session = Session(engine)
 # Design a query to retrieve the last 12 months of precipitation data and plot the results. 
 #Starting from the last data point in the database. 
 
-# Calculate the date one year from the last date in data set.
-
+# Calculate the date (a date point) one year from the last date in data set.
+perv_year = dt.date(2017,8,23) - dt.timedelta(days=365)
 # Perform a query to retrieve the data and precipitation scores
-
+results = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= perv_year)
+print(results.all())
 # Save the query results as a Pandas DataFrame and set the index to the date column
 
 # Sort the dataframe by date
@@ -70,7 +71,6 @@ session = Session(engine)
 
 # %%
 # Use Pandas to calcualte the summary statistics for the precipitation data
-
 
 # %%
 # How many stations are available in this dataset?
