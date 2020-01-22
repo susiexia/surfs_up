@@ -59,26 +59,27 @@ session = Session(engine)
 
 # Calculate the date (a date point) one year from the last date in data set.
 perv_year = dt.date(2017,8,23) - dt.timedelta(days=365)
+
 # Perform a query to retrieve the data and precipitation scores
 results = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= perv_year)
-#print(results.all())
+print(results.all())
 
 
 # Save the query results as a Pandas DataFrame and set the index to the date column
 df = pd.DataFrame(results, columns=['date', 'precipitation'])
 df.set_index(df['date'], inplace= True)
-#print(df.to_string(index= False))
+print(df.to_string(index= False))
 
 # Sort the dataframe by date
-
 df = df.sort_index()
 print(df.to_string(index=False))
+# %%
 # Use Pandas Plotting with Matplotlib to plot the data
-
+df.plot()
 
 # %%
 # Use Pandas to calcualte the summary statistics for the precipitation data
-
+df.describe()
 # %%
 # How many stations are available in this dataset?
 
