@@ -110,6 +110,9 @@ plt.tight_layout()
 # Write a function called `calc_temps` that will accept start date and end date in the format '%Y-%m-%d' 
 # and return the minimum, average, and maximum temperatures for that range of dates
 
+def calc_temps(start_date: datetime, end_date: datetime):
+    return session.query(Measurement.tobs).filter((Measurement.date >start_date) & (Measurement.date< end_date).all()
+
 # %% [markdown]
 # # Challenge
 
