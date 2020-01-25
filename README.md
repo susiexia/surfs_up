@@ -10,9 +10,9 @@
 
 # Challenge
 
-Seasonal weather analysis for Oahu island
+Seasonal weather analysis for Oahu island based on a comparison of precipitation and temperature between June and December from 2010 to 2017 across all observation stations.
 
-## Objectives
+## Project Process:
 
 - **Determine key statistical data about the month of June.**
 ![Jane_stats_summary.png](/Analysis/Jane_stats_summary.png)
