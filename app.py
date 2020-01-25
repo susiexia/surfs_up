@@ -26,12 +26,7 @@ session =  Session(engine)
 # set up flask app
 app = Flask(__name__)
 
-# check which destination execute app.py 
-print("example __name__ = %s", __name__)
-if __name__ == "__main__":
-    print("example is being run directly.")
-else:
-    print("example is being imported")
+
 
     
 @app.route('/')
@@ -71,4 +66,28 @@ def temp_monthly():
     temp = list(np.ravel(results))
 
     return jsonify(temp)
-app.run()
+@app.route("/api/v1.0/temp/<start>")
+@app.route("/api/v1.0/temp/<start>/<end>")
+def stats(start=None, end=None):
+    sel = [func.min(measurement.tobs), func.avg(measurement.tobs),\
+        func.max(measurement.tobs)]
+    
+    if not end:
+        results = session.query(*sel).filter(measurement.date>=start).\
+        filter(measurement.date<=end).all()
+    
+        temps = list(np.ravel(results))
+        return jsonify(temps)
+    
+    results = session.query(*sel).filter(measurement.date>=start).\
+    filter(measurement.date<=end).all()
+    temps = list(np.ravel(results))
+    return jsonify(temps)
+
+# check which destination execute app.py 
+print("example __name__ = %s", __name__)
+if __name__ == "__main__":
+    print("example is being run directly.")
+    app.run()
+else:
+    print("example is being imported")
