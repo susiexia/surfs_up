@@ -111,13 +111,47 @@ plt.tight_layout()
 # and return the minimum, average, and maximum temperatures for that range of dates
 
 def calc_temps(start_date = None, end_date = None):
+    sel = [func.min(Measurement.tobs), func.avg(Measurement.tobs),func.max(Measurement.tobs)]
+    results = session.query(*sel).filter((Measurement.date >= start_date) & (Measurement.date <= end_date)).all()
     
-    return session.query(Measurement.tobs).filter((Measurement.date >start_date) & (Measurement.date< end_date).all()
-
+    return list(np.ravel(results))
+# %%
+# call calc_temps function to determine stats in June 2017
+start = '2017-06-01'
+end = '2017-06-30'
+calc_temps(start_date=start, end_date= end)
 # %% [markdown]
 # # Challenge
 
 # %%
+# Identify key statistical data in June across all of the stations and years 
+
+# select all data for all years, and filter onld June data using LIKE funtion
+results = session.query(Measurement.date, Measurement.prcp, Measurement.tobs).\
+    filter(Measurement.date.like('%-06-%')).all()
+# convert into a DataFrame
+June_df = pd.DataFrame(results, columns = ['June_date', 'June_precipitation', 'June_temp'])
+June_df.set_index(June_df['June_date'], inplace= True)
+
+# Sort the dataframe by date
+June_df = June_df.sort_index()
+June_df.describe()
+#print(June_df.to_string(index=False))
+# %%
+# Determine key statistical data about the month of December.
+results = session.query(Measurement.date, Measurement.prcp, Measurement.tobs).\
+    filter(Measurement.date.like('%-12-%')).all()
+# convert into a DataFrame
+Dec_df = pd.DataFrame(results, columns = ['Dec_date', 'Dec_precipitation', 'Dec_temp'])
+Dec_df.set_index(Dec_df['Dec_date'], inplace= True)
+
+# Sort the dataframe by date
+Dec_df = Dec_df.sort_index()
+Dec_df.describe()
+
+#print(Dec_df.to_string(index=False))
+# %%
 
 
 
+# %%
