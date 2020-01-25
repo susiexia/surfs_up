@@ -14,10 +14,10 @@ Seasonal weather analysis for Oahu island
 
 ## Objectives
 
-- **Determine key statistical data about the month of July.**
-![]()
+- **Determine key statistical data about the month of June.**
+![Jane_stats_summary.png](/Analysis/Jane_stats_summary.png)
 - **Determine key statistical data about the month of December.**
-![]()
+![Dec_stats_summary.png](/Analysis/Dec_stats_summary.png)
 - **Compare your findings between the month of July and December.**
 
 *Based on a comparison of precipitation and temperature between June and December from 2010 to 2017 across all observation stations, it’s possible to notice the following statistical information:*
